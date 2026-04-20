@@ -1,21 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
 
 :root {
-  --page-bg: #e9e2d3;
-  --panel-bg: linear-gradient(180deg, rgba(249, 245, 236, 0.94), rgba(244, 238, 228, 0.92));
+  --page-bg: #e7ddca;
+  --panel-bg: linear-gradient(180deg, rgba(251, 247, 239, 0.92), rgba(243, 235, 223, 0.88));
   --border-color: rgba(34, 46, 39, 0.14);
   --heading-color: #18221b;
   --body-color: #35443a;
   --muted-color: #607168;
-  --accent-color: #86bb8a;
-  --panel-shadow: 0 20px 45px rgba(48, 52, 40, 0.12);
+  --accent-color: #9ac08d;
+  --panel-shadow: 0 24px 54px rgba(48, 52, 40, 0.12);
   --heading-font: 'Space Grotesk', 'Trebuchet MS', sans-serif;
   --body-font: 'IBM Plex Sans', 'Segoe UI', sans-serif;
   font: 16px/1.5 var(--body-font);
   color: var(--body-color);
   background:
-    radial-gradient(circle at top left, rgba(118, 164, 129, 0.35), transparent 30%),
-    linear-gradient(135deg, #efe9dc, #e4dbc8 58%, #d6cbb2);
+    radial-gradient(circle at top left, rgba(118, 164, 129, 0.32), transparent 28%),
+    radial-gradient(circle at 85% 20%, rgba(189, 147, 86, 0.18), transparent 22%),
+    linear-gradient(135deg, #efe7d9, #e2d7c0 58%, #d4c5a8);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -33,20 +34,22 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  background: transparent;
 }
 
 button,
-input {
+input,
+a {
   font: inherit;
 }
 
 #root {
   min-height: 100vh;
-  padding: 2rem 1rem 3rem;
+  padding: 2rem 1rem 3.5rem;
 }
 
 main {
-  width: min(1100px, 100%);
+  width: min(1160px, 100%);
   margin: 0 auto;
 }
 
@@ -82,4 +85,10 @@ a,
 button,
 input {
   outline-offset: 3px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgba(28, 37, 31, 0.55);
 }

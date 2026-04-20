@@ -1,15 +1,17 @@
 .task-manager-shell {
   display: grid;
   gap: 1.5rem;
+  position: relative;
 }
 
 .panel {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--border-color);
-  border-radius: 1.5rem;
+  border-radius: 1.6rem;
   background: var(--panel-bg);
   box-shadow: var(--panel-shadow);
+  backdrop-filter: blur(14px);
 }
 
 .page-upper,
@@ -23,10 +25,10 @@
 .page-bottom::after {
   content: '';
   position: absolute;
-  inset: auto -20% -60% auto;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle, rgba(94, 168, 120, 0.16), transparent 65%);
+  inset: auto -18% -58% auto;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(137, 176, 117, 0.2), transparent 65%);
   pointer-events: none;
 }
 
@@ -34,18 +36,41 @@
   max-width: 42rem;
 }
 
-.upper-grid {
+.page-upper-login,
+.page-upper-dashboard {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.upper-grid,
+.login-signal-grid,
+.dashboard-grid,
+.shortcut-grid {
   display: grid;
   gap: 1rem;
-  margin-top: 1.5rem;
+}
+
+.upper-grid,
+.login-signal-grid,
+.shortcut-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.dashboard-grid {
+  margin-top: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .summary-card,
-.login-card {
+.login-card,
+.signal-card,
+.dashboard-card,
+.shortcut-card,
+.login-form-card,
+.login-side-card {
   border: 1px solid var(--border-color);
   border-radius: 1.25rem;
-  background: rgba(253, 251, 244, 0.72);
+  background: rgba(253, 251, 244, 0.78);
   padding: 1rem;
 }
 
@@ -57,33 +82,40 @@
 }
 
 .summary-metrics article,
-.login-card dl div {
+.login-card dl div,
+.session-list div {
   display: grid;
   gap: 0.25rem;
 }
 
-.summary-metrics strong {
+.summary-metrics strong,
+.signal-card strong,
+.dashboard-card strong {
   color: var(--heading-color);
   font-family: var(--heading-font);
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
 }
 
 .summary-metrics span,
 .summary-label,
-.login-card dt {
+.login-card dt,
+.signal-label,
+.session-list dt {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted-color);
 }
 
-.login-card dl {
+.login-card dl,
+.session-list {
   display: grid;
   gap: 1rem;
   margin: 0;
 }
 
-.login-card dd {
+.login-card dd,
+.session-list dd {
   margin: 0;
   color: var(--heading-color);
   font-weight: 600;
@@ -113,37 +145,55 @@
   color: var(--muted-color);
 }
 
-.task-composer {
+.login-layout {
   display: grid;
-  gap: 0.75rem;
+  gap: 1rem;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: start;
+}
+
+.task-composer,
+.login-form-card,
+.login-side-card {
+  display: grid;
+  gap: 1rem;
 }
 
 .task-composer label,
-.section-heading h3 {
+.section-heading h3,
+.login-field {
   color: var(--heading-color);
   font-weight: 600;
 }
 
+.login-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
 .task-composer-row,
 .filter-bar,
-.page-bottom {
+.login-actions {
   display: flex;
   gap: 0.75rem;
   align-items: center;
   justify-content: space-between;
 }
 
-.task-composer input {
+.task-composer input,
+.login-field input {
   flex: 1;
   min-height: 3rem;
   border: 1px solid var(--border-color);
-  border-radius: 999px;
+  border-radius: 1rem;
   padding: 0 1rem;
   font: inherit;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.82);
 }
 
 .task-composer button,
+.primary-action,
+.secondary-action,
 .filter-button,
 .ghost-button,
 .danger-button {
@@ -153,18 +203,33 @@
   padding: 0 1rem;
   font: inherit;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   transition:
     transform 160ms ease,
     background-color 160ms ease,
-    border-color 160ms ease;
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
 }
 
-.task-composer button {
+.task-composer button,
+.primary-action {
   background: var(--heading-color);
   color: #f6f3ea;
 }
 
+.secondary-action {
+  border-color: var(--border-color);
+  background: transparent;
+  color: var(--heading-color);
+}
+
 .task-composer button:hover,
+.primary-action:hover,
+.secondary-action:hover,
 .filter-button:hover,
 .ghost-button:hover,
 .danger-button:hover {
@@ -175,6 +240,15 @@
   cursor: wait;
   opacity: 0.72;
   transform: none;
+}
+
+.inline-action {
+  margin-top: 1rem;
+}
+
+.login-side-card {
+  background:
+    linear-gradient(180deg, rgba(237, 232, 221, 0.78), rgba(250, 247, 240, 0.7));
 }
 
 .filter-actions {
@@ -218,8 +292,7 @@
 }
 
 .task-card-header,
-.task-actions,
-.footer-nav {
+.task-actions {
   display: flex;
   gap: 0.75rem;
   align-items: center;
@@ -228,7 +301,8 @@
 }
 
 .task-card h3,
-.page-bottom h2 {
+.page-bottom h2,
+.shortcut-card h3 {
   margin: 0;
   color: var(--heading-color);
 }
@@ -271,36 +345,119 @@
   text-align: center;
 }
 
-.footer-nav a {
-  color: var(--heading-color);
-  text-decoration: none;
+.emphasis-card {
+  background:
+    linear-gradient(160deg, rgba(41, 66, 46, 0.95), rgba(56, 88, 63, 0.92)),
+    rgba(41, 66, 46, 0.95);
 }
 
-.footer-nav a:hover,
-.footer-nav a:focus-visible {
-  color: var(--accent-color);
+.emphasis-card strong,
+.emphasis-card .summary-label,
+.emphasis-card .muted {
+  color: #f2efe6;
+}
+
+.page-bottom {
+  display: grid;
+  gap: 1rem;
+  position: sticky;
+  bottom: 1rem;
+  z-index: 2;
+}
+
+.page-bottom-copy {
+  max-width: 38rem;
+}
+
+.bottom-dock-list {
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 0;
+  margin: 0;
+}
+
+.bottom-dock-link {
+  display: grid;
+  gap: 0.2rem;
+  min-height: 100%;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(28, 37, 31, 0.1);
+  padding: 0.95rem 1rem;
+  color: var(--heading-color);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.62);
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.bottom-dock-link:hover,
+.bottom-dock-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(28, 37, 31, 0.2);
+  box-shadow: 0 14px 24px rgba(35, 43, 34, 0.12);
+}
+
+.bottom-dock-link.active {
+  background:
+    linear-gradient(165deg, rgba(41, 66, 46, 0.96), rgba(63, 92, 67, 0.94));
+  border-color: rgba(41, 66, 46, 0.7);
+  color: #f2efe6;
+}
+
+.bottom-dock-step {
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+.bottom-dock-label {
+  font-family: var(--heading-font);
+  font-size: 1.05rem;
+}
+
+.bottom-dock-description {
+  color: inherit;
+  opacity: 0.82;
+  font-size: 0.92rem;
 }
 
 @media (max-width: 768px) {
   .upper-grid,
-  .summary-metrics {
+  .summary-metrics,
+  .login-layout,
+  .login-signal-grid,
+  .dashboard-grid,
+  .shortcut-grid,
+  .bottom-dock-list {
     grid-template-columns: 1fr;
   }
 
   .task-composer-row,
   .filter-bar,
-  .page-bottom {
+  .login-actions {
     flex-direction: column;
     align-items: stretch;
   }
 
   .task-composer button,
   .filter-actions,
-  .footer-nav {
+  .bottom-dock,
+  .primary-action,
+  .secondary-action {
     width: 100%;
   }
 
   .task-actions {
     align-items: stretch;
+  }
+
+  .page-bottom {
+    position: static;
   }
 }

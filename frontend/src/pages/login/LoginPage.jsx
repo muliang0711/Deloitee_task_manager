@@ -1,13 +1,16 @@
-export function LoginPage() {
+import { PageBottomSection } from '../../components/layout/PageBottomSection'
+import { LoginCenterSection } from '../../components/login/LoginCenterSection'
+import { LoginUpperSection } from '../../components/login/LoginUpperSection'
+
+export function LoginPage({ loginSession }) {
   return (
     <main className="task-manager-shell">
-      <section className="panel page-center">
-        <p className="eyebrow">Login Page</p>
-        <h1>Login</h1>
-        <p className="muted">
-          Placeholder page reserved for the frontend phase after backend sign-off.
-        </p>
-      </section>
+      <LoginUpperSection />
+      <LoginCenterSection loginSession={loginSession} />
+      <PageBottomSection
+        description="A shared bottom bar means future routes can be added inside the router without rewriting each page footer."
+        title="Shared route navigation"
+      />
     </main>
   )
 }

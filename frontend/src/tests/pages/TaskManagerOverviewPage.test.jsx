@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, test } from 'vitest'
 import { TaskManagerOverviewPage } from '../../pages/overview/TaskManagerOverviewPage'
 
@@ -40,13 +41,15 @@ function createFakeTaskApi(seedTasks = []) {
 describe('TaskManagerOverviewPage', () => {
   test('renders upper, center, and bottom sections with login details', async () => {
     render(
-      <TaskManagerOverviewPage
-        taskApi={createFakeTaskApi()}
-        loginSession={{
-          userId: 'staff-001',
-          loginTime: '2026-04-20T08:00:00.000Z',
-        }}
-      />,
+      <MemoryRouter>
+        <TaskManagerOverviewPage
+          taskApi={createFakeTaskApi()}
+          loginSession={{
+            userId: 'staff-001',
+            loginTime: '2026-04-20T08:00:00.000Z',
+          }}
+        />
+      </MemoryRouter>,
     )
 
     expect(
@@ -61,21 +64,23 @@ describe('TaskManagerOverviewPage', () => {
     const user = userEvent.setup()
 
     render(
-      <TaskManagerOverviewPage
-        taskApi={createFakeTaskApi([
-          {
-            id: 'seed-1',
-            title: 'Review backlog',
-            status: 'PENDING',
-            createdAt: '2026-04-20T08:00:00.000Z',
-            updatedAt: '2026-04-20T08:00:00.000Z',
-          },
-        ])}
-        loginSession={{
-          userId: 'staff-002',
-          loginTime: '2026-04-20T09:30:00.000Z',
-        }}
-      />,
+      <MemoryRouter>
+        <TaskManagerOverviewPage
+          taskApi={createFakeTaskApi([
+            {
+              id: 'seed-1',
+              title: 'Review backlog',
+              status: 'PENDING',
+              createdAt: '2026-04-20T08:00:00.000Z',
+              updatedAt: '2026-04-20T08:00:00.000Z',
+            },
+          ])}
+          loginSession={{
+            userId: 'staff-002',
+            loginTime: '2026-04-20T09:30:00.000Z',
+          }}
+        />
+      </MemoryRouter>,
     )
 
     expect(

@@ -133,7 +133,10 @@ export function TaskManagerOverviewPage({
         onFilterChange={setActiveFilter}
         onToggleTaskStatus={handleToggleTaskStatus}
       />
-      <PageBottomSection />
+      <PageBottomSection
+        description="The operational page keeps CRUD controls in the center while the shared bottom dock handles route switching."
+        title="Shared app navigation"
+      />
     </main>
   )
 }

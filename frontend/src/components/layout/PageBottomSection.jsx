@@ -1,20 +1,18 @@
-export function PageBottomSection() {
-  return (
-    <footer className="page-bottom" role="contentinfo">
-      <div>
-        <p className="eyebrow">Bottom Section</p>
-        <h2>Task Manager Link</h2>
-        <p className="muted">
-          Keep the footer isolated so navigation, ownership text, and support links
-          can be changed without touching the task board.
-        </p>
-      </div>
+import { BottomNavigator } from '../navigation/BottomNavigator'
 
-      <nav className="footer-nav" aria-label="Footer menu">
-        <a href="#task-board">Task board</a>
-        <a href="#new-task">Create task</a>
-        <a href="#status-filters">Filter tasks</a>
-      </nav>
+export function PageBottomSection({
+  eyebrow = 'Shared Navigator',
+  title = 'Move through the task manager',
+  description = 'The bottom bar is shared across pages so navigation logic and page switching stay isolated from page content.',
+}) {
+  return (
+    <footer className="page-bottom panel" role="contentinfo">
+      <div className="page-bottom-copy">
+        <p className="eyebrow">{eyebrow}</p>
+        <h2>{title}</h2>
+        <p className="muted">{description}</p>
+      </div>
+      <BottomNavigator />
     </footer>
   )
 }
